@@ -1,30 +1,28 @@
-const path = require("path");
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
-  target: "web",
+  target: 'web',
   module: {
     rules: [
       {
         test: /\.(wasm)|(bin)|(obj)$/i,
-        include: [
-          path.resolve(__dirname, 'node_modules/deepar/'),
-        ],
+        include: [path.resolve(__dirname, 'node_modules/deepar/')],
         type: 'asset/resource',
       },
       {
-        include: [
-          path.resolve(__dirname, 'effects/'),
-        ],
+        include: [path.resolve(__dirname, 'effects/')],
         type: 'asset/resource',
       },
     ],
   },
+  plugins: [new Dotenv()],
   resolve: {
     alias: {
       '@effects': path.resolve(__dirname, 'effects/'),
@@ -37,13 +35,14 @@ module.exports = {
   devServer: {
     static: [
       {
-        directory: path.join(__dirname, "public"),
+        directory: path.join(__dirname, 'public'),
       },
       {
-        directory: path.join(__dirname, "node_modules/deepar"),
-        publicPath: "/deepar-resources",
+        directory: path.join(__dirname, 'node_modules/deepar'),
+        publicPath: '/deepar-resources',
       },
     ],
+    allowedHosts: 'all',
     compress: true,
     port: 9000,
   },
