@@ -24,7 +24,9 @@ jobs:
       - name: Build project
         env:
           LICENSE_KEY: ${{ secrets.LICENSE_KEY }}
-        run: npm run build
+        run: |
+          echo "LICENSE_KEY=$LICENSE_KEY"
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
